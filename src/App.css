@@ -1,0 +1,17 @@
+@font-face {
+    font-family: lobster;
+    src: url(./Lobster-Regular.ttf);
+}
+
+.two {
+    align-items: center;
+}
+
+/* 
+.nav-item>a {
+    color: white !important;
+   
+    
+} */
+
+

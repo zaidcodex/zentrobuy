@@ -24,22 +24,23 @@ const CreatePost = () => {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
-useEffect(()=>{
-  console.log(formData)
-}, [formData])
-
-
-  const config = useMemo(() => ({
-    readonly: false,
-    height: 300,
-    placeholder: 'Write your description...',
-    toolbarAdaptive: false,
-    toolbarSticky: false,
-    askBeforePasteHTML: false,
-    askBeforePasteFromWord: false,
-    pastePlain: false,
-  }), []);
+  const config = useMemo(
+    () => ({
+      readonly: false,
+      height: 300,
+      placeholder: 'Write your description...',
+      toolbarAdaptive: false,
+      toolbarSticky: false,
+      askBeforePasteHTML: false,
+      askBeforePasteFromWord: false,
+      pastePlain: false,
+    }),
+    []
+  );
 
   const handleChange = (e) => {
     setFormData({
@@ -62,11 +63,11 @@ useEffect(()=>{
     setUploading(true);
     const data = new FormData();
     data.append('file', file);
-    data.append('upload_preset', 'hockey');
-    data.append('cloud_name', 'dqu8eh3hz');
+    data.append('upload_preset', 'affiliate');
+    data.append('cloud_name', 'dyytzksdp');
 
     try {
-      const res = await fetch('https://api.cloudinary.com/v1_1/dqu8eh3hz/image/upload', {
+      const res = await fetch('https://api.cloudinary.com/v1_1/dyytzksdp/image/upload', {
         method: 'POST',
         body: data,
       });
@@ -142,16 +143,107 @@ useEffect(()=>{
           />
         </div>
 
+        {/* ✅ File upload + image preview */}
         <div className="form-group mb-3">
           <label>Cover Image</label>
-          <input type="file" className="form-control" onChange={handleFileUpload} disabled={uploading} />
+          <input
+            type="file"
+            className="form-control"
+            onChange={handleFileUpload}
+            disabled={uploading}
+          />
           {uploading && (
             <div className="mt-2 text-center">
               <div className="spinner-border text-primary" role="status" />
               <div className="text-muted">Uploading...</div>
             </div>
           )}
+
+          {/* ✅ Show preview after upload */}
+          {formData.coverImage && !uploading && (
+            <div className="mt-3 text-center">
+              <img
+                src={formData.coverImage}
+                alt="Cover Preview"
+                className="img-fluid rounded shadow-sm"
+                style={{ maxHeight: '250px', objectFit: 'cover' }}
+              />
+              <p className="text-muted mt-2 small">Preview of uploaded cover image</p>
+            </div>
+          )}
         </div>
+
+       {/* ✅ Independent Image Upload with Preview and URL */}
+<div className="form-group mb-3">
+  <label>Image Uploading (Not Post Image)</label>
+  
+  {/* Upload button */}
+  <input
+    type="file"
+    className="form-control"
+    onChange={async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      setUploading(true);
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "affiliate");
+      data.append("cloud_name", "dyytzksdp");
+
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dyytzksdp/image/upload",
+          { method: "POST", body: data }
+        );
+        const result = await res.json();
+        if (result.url) {
+          setFormData((prev) => ({
+            ...prev,
+            extraImage: result.url, // ✅ new key (not part of post form)
+          }));
+        } else {
+          alert("Upload failed!");
+        }
+      } catch (err) {
+        console.error("Error uploading:", err);
+      } finally {
+        setUploading(false);
+      }
+    }}
+    disabled={uploading}
+  />
+
+  {/* Show uploading spinner */}
+  {uploading && (
+    <div className="mt-2 text-center">
+      <div className="spinner-border text-primary" role="status" />
+      <div className="text-muted">Uploading...</div>
+    </div>
+  )}
+
+  {/* ✅ Show uploaded image URL + preview */}
+  {formData.extraImage && !uploading && (
+    <div className="mt-3">
+      <label className="small text-muted">Uploaded Image URL:</label>
+      <input
+        type="text"
+        readOnly
+        className="form-control mb-3"
+        value={formData.extraImage}
+      />
+      <div className="text-center">
+        <img
+          src={formData.extraImage}
+          alt="Uploaded Preview"
+          className="img-fluid rounded shadow-sm"
+          style={{ maxHeight: "250px", objectFit: "cover" }}
+        />
+      </div>
+    </div>
+  )}
+</div>
+
 
         <div className="form-group mb-3">
           <label>Description</label>
@@ -183,10 +275,19 @@ useEffect(()=>{
           </select>
         </div>
 
-        <button type="submit" className="btn " disabled={submitting || uploading} style={{backgroundColor:'#ea4c2d', color:'white'}}>
+        <button
+          type="submit"
+          className="btn"
+          disabled={submitting || uploading}
+          style={{ backgroundColor: '#ea4c2d', color: 'white' }}
+        >
           {submitting ? (
             <div>
-              <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              <span
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
               Creating...
             </div>
           ) : (

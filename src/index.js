@@ -8,10 +8,12 @@ import AppState from './context/appState.jsx';
 
 
 
+
 ReactDOM.render(
     <BrowserRouter>
     <AppState>
     < App / >
     </AppState>
-    </BrowserRouter> , document.getElementById('root'));
+    </BrowserRouter> , document.getElementById('root')
+    );
 registerServiceWorker();

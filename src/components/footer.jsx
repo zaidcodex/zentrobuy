@@ -9,8 +9,8 @@ export default function Footer() {
   console.log(settings);
   
     return (
-        <div>
-            <footer class="site-footer">
+        <div style={{backgroundColor:"#38384D", color:"#fff"} } className="p-3">
+            <footer class="py-5">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
@@ -56,14 +56,14 @@ export default function Footer() {
                     <div class="row">
                         <div class="col-md-8 col-sm-6 col-xs-12">
                             <p class="copyright-text">Copyright &copy; 2024 All Rights Reserved by
-                                <Link to="/" onClick={()=>{window.scrollTo({ behavior: 'smooth', top: 0, left: 0,behavior:"instant" })}}> Hockey Updates</Link>.
+                                <Link to="/" onClick={()=>{window.scrollTo({ behavior: 'smooth', top: 0, left: 0,behavior:"instant" })}}> Zentrobuy</Link>.
                             </p>
-                            <p class="copyright-text">Site developed by: <a href="https://metatech-official.co/" target='_blank'>Metatech Official</a>
+                            {/* <p class="copyright-text">Site developed by: <a href="https://metatech-official.co/" target='_blank'>Metatech Official</a>
                                 
-                            </p>
+                            </p> */}
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-12 p-2">
                             <ul class="social-icons">
                                 <li><Link onClick={()=>{window.scrollTo({ behavior: 'smooth', top: 0, left: 0,behavior:"instant" })}} class="facebook" to="/" target="blank"><i class="fa fa-facebook"></i></Link></li>
                                 <li><Link onClick={()=>{window.scrollTo({ behavior: 'smooth', top: 0, left: 0,behavior:"instant" })}} class="twitter" to="/"><i class="fa fa-twitter"></i></Link></li>

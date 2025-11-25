@@ -5,9 +5,9 @@ import {Link } from "react-router-dom";
 
 const Sidebar = ({ relatedPosts = [] }) => {
   return (
-    <div className=" sidebar bg-light pt-4 pl-4">
+    <div className=" sidebar pt-4 mx-3" >
       {/* Search Container */}
-      <div className="w-1/4 search-container bg-white p-4 mb-4 rounded shadow-sm">
+      {/* <div className="w-1/4 search-container bg-white p-4 mb-4 rounded shadow-sm">
         <form className="d-flex">
           <input 
             type="search" 
@@ -19,14 +19,14 @@ const Sidebar = ({ relatedPosts = [] }) => {
             <i className="fa fa-search"></i>
           </button>
         </form>
-      </div>
+      </div> */}
       
       {/* Pages Container */}
-      <div className="w-1/4 pages-container bg-white p-3 mb-4 rounded shadow-sm">
-        <h5 className="mb-3">Related Posts</h5>
+      <div className="w-1/4 pages-container  p-3 mb-4 rounded shadow-sm" style={{backgroundColor:'#38384D'}}>
+        <h5 className="m-3" style={{color:'#fff'}}>Related Posts</h5>
         <ul className="list-unstyled p-4">
           {relatedPosts.map((post) => (
-  <li key={post._id} className="mb-2">
+  <li key={post._id} className=" py-3">
     <Link to={`/post/${post._id}`} className="text-primary">
       {post.title}
     </Link>

@@ -52,7 +52,7 @@ const BasicSettings = () => {
 
           <div className="form-group mb-3">
             <label>Meta Description</label>
-            <input
+            <textarea 
               type="text"
               name="metaDescription"
               className="form-control"

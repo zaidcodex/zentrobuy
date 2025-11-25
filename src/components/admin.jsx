@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AppContext from '../context/appContext'
 import { useContext } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
@@ -41,11 +41,13 @@ const handleLogin = async (e)=>{
 }
 
 
-
-    // const token = localStorage.getItem("authToken")
-    // if(token){
-    //     history.push("/admin-dashboard/basic-settings")
-    // }
+useEffect(() => {
+  const token = localStorage.getItem("authToken")
+  if(token){
+      history.push("/admin-dashboard/basic-settings")
+  }
+ 
+}, []);
     // setImgIsLoaded(true)
     // setMainLoader(false)
     // setcheckouter(true)

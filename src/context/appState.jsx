@@ -23,7 +23,7 @@ const AppState = (props) => {
 
     const signIn = async (username, password) => {
   try {
-    const url = "https://advanced-blogging-app.vercel.app/api/auth/login";
+    const url = "https://zentrobuy-be.vercel.app/api/auth/login";
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
@@ -61,104 +61,9 @@ const AppState = (props) => {
     
     const [siteData, setSiteData] = useState({ title: "", email: "", contact: "", description: "", about: "" })
     const [allPackageData, setAllPackageData] = useState([])
-    const getAppData = async () => {
-
-        const url = "https://hotel-management-backend-application-three.vercel.app/api/coverImages/getImages"
-        const response = await fetch(url, {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            // body: JSON.stringify({ username, password }), // body data type must match "Content-Type" header
-        });
-        const data = await response.json(); // parses JSON response into native JavaScript objects
-        setCoverImages(data.assets)
+    
 
 
-        const responseTwo = await fetch("https://hotel-management-backend-application-three.vercel.app/api/rooms/allrooms", {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            // body: JSON.stringify({ username, password }), // body data type must match "Content-Type" header
-        });
-        const roomData = await responseTwo.json(); // parses JSON response into native JavaScript objects
-        // setCoverImages(data.assets)
-        // console.log(data.assets);
-        console.log(roomData);
-        const responseThree = await fetch("https://hotel-management-backend-application-three.vercel.app/api/metadata/getSite/", {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            // body: JSON.stringify({ username, password }), // body data type must match "Content-Type" header
-        });
-        const siteData = await responseThree.json(); // parses JSON response into native JavaScript objects
-        setSiteData({ id: siteData._id, title: siteData.title, email: siteData.email, phone: siteData.phone, description: siteData.description, about: siteData.about })
-        // setCoverImages(data.assets)
-        // console.log(data.assets);
-        console.log(siteData);
-
-        const responseFour = await fetch("https://hotel-management-backend-application-three.vercel.app/api/rooms/allrooms", {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            // body: JSON.stringify({ username, password }), // body data type must match "Content-Type" header
-        });
-        const allRoomData = await responseFour.json(); // parses JSON response into native JavaScript objects
-        console.log(allRoomData);
-        setAllPackageData(allRoomData)
-
-        // setappLoader(false)
-    }
-
-    const [editLoader, setEditLoader] = useState(false)
-
-    const editSiteInfo = async () => {
-        setEditLoader(true)
-        const { title, description, email, phone, about } = siteData
-        const responseThree = await fetch(`https://hotel-management-backend-application-three.vercel.app/api/metadata/editSite/${siteData.id}`, {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            body: JSON.stringify({ title, description, email, phone, about }), // body data type must match "Content-Type" header
-        });
-        const resData = await responseThree.json(); // parses JSON response into native JavaScript objects
-        setSiteData({ id: siteData.id, title: resData.title, email: resData.email, phone: resData.phone, description: resData.description, about: resData.about })
-        setEditLoader(false)
-
-    }
-
-    useEffect(() => {
-        getAppData()
-    }, [])
 
 
     const modalRef = useRef(null)
@@ -236,119 +141,12 @@ const AppState = (props) => {
     }
 
     const [editorLoader, setEditorLoader] = useState(false)
-    const editImages = async () => {
-        // setEditLoader(true)
-        // const { title, description, email, phone, about } = siteData
-        setEditorLoader(true)
-        console.log(coverImages);
-        
-        const responseThree = await fetch(`https://hotel-management-backend-application-three.vercel.app/api/coverImages/editImages/6796b7f14be1c2f2c3a30100`, {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            body: JSON.stringify({assets:coverImages}), // body data type must match "Content-Type" header
-        });
-        const resData = await responseThree.json(); // parses JSON response into native JavaScript objects
-        console.log(resData);
-        setEditorLoader(false)
-        
-        // setSiteData({ id: siteData.id, title: resData.title, email: resData.email, phone: resData.phone, description: resData.description, about: resData.about })
-        // setEditLoader(false)
-
-    }
-    const editRooms = async () => {
-        // setEditLoader(true)
-        // const { title, description, email, phone, about } = siteData
-        setEditorLoader(true)
-        // console.log(coverImages);
-        
-        const responseThree = await fetch(`https://hotel-management-backend-application-three.vercel.app/api/rooms/editRoom/${obj._id}`, {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            body: JSON.stringify(obj), // body data type must match "Content-Type" header
-        });
-        const resData = await responseThree.json(); // parses JSON response into native JavaScript objects
-        console.log(resData);
-        getAppData()
-        setEditorLoader(false)
-        
-        // setSiteData({ id: siteData.id, title: resData.title, email: resData.email, phone: resData.phone, description: resData.description, about: resData.about })
-        // setEditLoader(false)
-
-    }
-    const createRoom = async () => {
-        // setEditLoader(true)
-        // const { title, description, email, phone, about } = siteData
-        setEditorLoader(true)
-        // console.log(coverImages);
-        
-        const responseThree = await fetch(`https://hotel-management-backend-application-three.vercel.app/api/rooms/createRoom`, {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            body: JSON.stringify(obj), // body data type must match "Content-Type" header
-        });
-        const resData = await responseThree.json(); // parses JSON response into native JavaScript objects
-        console.log(resData);
-        getAppData()
-        setEditorLoader(false)
-        
-        // setSiteData({ id: siteData.id, title: resData.title, email: resData.email, phone: resData.phone, description: resData.description, about: resData.about })
-        // setEditLoader(false)
-
-    }
-    const deleteRoom = async () => {
-        // setEditLoader(true)
-        // const { title, description, email, phone, about } = siteData
-        setEditorLoader(true)
-        // console.log(coverImages);
-        
-        const responseThree = await fetch(`https://hotel-management-backend-application-three.vercel.app/api/rooms/deleteRoom/${obj._id}`, {
-            method: "DELETE", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*",
-            },
-
-            body: JSON.stringify(obj), // body data type must match "Content-Type" header
-        });
-        const resData = await responseThree.json(); // parses JSON response into native JavaScript objects
-        console.log(resData);
-        getAppData()
-        setEditorLoader(false)
-        
-        // setSiteData({ id: siteData.id, title: resData.title, email: resData.email, phone: resData.phone, description: resData.description, about: resData.about })
-        // setEditLoader(false)
-
-    }
-
+  
 
 
    const getBasicSettings = async () => {
   try {
-    const res = await fetch("https://advanced-blogging-app.vercel.app/api/settings/getsettings");
+    const res = await fetch("https://zentrobuy-be.vercel.app/api/settings/getsettings");
     const data = await res.json();
 
     if (res.ok) {
@@ -376,7 +174,7 @@ useEffect(() => {
 
 const updateSettings = async (newSettings) => {
   try {
-    const res = await fetch("https://advanced-blogging-app.vercel.app/api/settings/updatesettings", {
+    const res = await fetch("https://zentrobuy-be.vercel.app/api/settings/updatesettings", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -402,7 +200,7 @@ const updateSettings = async (newSettings) => {
 
 const getCategories = async()=>{
     try {
-        const res = await fetch("https://advanced-blogging-app.vercel.app/api/category/getcategories")
+        const res = await fetch("https://zentrobuy-be.vercel.app/api/category/getcategories")
         const data = await res.json()
         
         if (res.ok) {
@@ -418,7 +216,7 @@ const getCategories = async()=>{
 
 const createCategory = async (categoryData)=>{
      try {
-      const res = await fetch('https://advanced-blogging-app.vercel.app/api/category/createcategory', {
+      const res = await fetch('https://zentrobuy-be.vercel.app/api/category/createcategory', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -442,7 +240,7 @@ const createCategory = async (categoryData)=>{
 
 const createPost = async (post)=>{
     try {
-      const res = await fetch('https://advanced-blogging-app.vercel.app/api/post/createpost', {
+      const res = await fetch('https://zentrobuy-be.vercel.app/api/post/createpost', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(post),
@@ -464,7 +262,7 @@ const createPost = async (post)=>{
 
 const getPosts = async ()=>{
     try {
-        const res = await fetch('https://advanced-blogging-app.vercel.app/api/post/getpost')
+        const res = await fetch('https://zentrobuy-be.vercel.app/api/post/getpost')
     const data = await res.json()
         
         if (res.ok) {
@@ -480,7 +278,7 @@ const getPosts = async ()=>{
 
 
 const updateCategory = async (id, updatedCategory) => {
-  const res = await fetch(`https://advanced-blogging-app.vercel.app/api/category/updatecategory/${id}`, {
+  const res = await fetch(`https://zentrobuy-be.vercel.app/api/category/updatecategory/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedCategory),
@@ -493,7 +291,7 @@ const updateCategory = async (id, updatedCategory) => {
 
 const updatePost = async (id,updatedPost) => {
   try {
-    const res = await fetch(`https://advanced-blogging-app.vercel.app/api/post/updatepost/${id}`, {
+    const res = await fetch(`https://zentrobuy-be.vercel.app/api/post/updatepost/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -520,7 +318,7 @@ const updatePost = async (id,updatedPost) => {
 
 const deleteCategory = async (id) => {
   try {
-    const res = await fetch(`https://advanced-blogging-app.vercel.app/api/category/deletecategory/${id}`, {
+    const res = await fetch(`https://zentrobuy-be.vercel.app/api/category/deletecategory/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -546,7 +344,7 @@ const deleteCategory = async (id) => {
 
 const deletePost = async (id) => {
   try {
-    const res = await fetch(`https://advanced-blogging-app.vercel.app/api/post/deletepost/${id}`, {
+    const res = await fetch(`https://zentrobuy-be.vercel.app/api/post/deletepost/${id}`, {
       method: 'DELETE',
     });
 
@@ -568,7 +366,7 @@ const deletePost = async (id) => {
 
 const getPostsByCategory = async (categoryId) => {
   try {
-    const response = await fetch(`https://advanced-blogging-app.vercel.app/api/post/getcategorypost/${categoryId}`);
+    const response = await fetch(`https://zentrobuy-be.vercel.app/api/post/getcategorypost/${categoryId}`);
     const data = await response.json();
 
     if (data.success) {
@@ -585,7 +383,7 @@ const getPostsByCategory = async (categoryId) => {
 
 const getPostById = async (id) => {
   try {
-    const res = await fetch(`https://advanced-blogging-app.vercel.app/api/post/getpostbyid/${id}`);
+    const res = await fetch(`https://zentrobuy-be.vercel.app/api/post/getpostbyid/${id}`);
     const data = await res.json();
 
     if (res.ok && data.success) {
@@ -609,7 +407,7 @@ const getPostById = async (id) => {
 
       // console.clear()
     return (
-        <AppContext.Provider value={{settings,  getPostById, singPost, appLoader, setAppLoader, getPostsByCategory,categoryPosts, deletePost,getBasicSettings, deleteCategory,updatePost, updateCategory, posts,getPosts,createPost ,createCategory ,getCategories,categories, updateSettings, deleteRoom,createRoom,editRooms,obj,setobj,allPackageData,roomButtonRef,setRoomSelectedImage,roomImageCloudinary,roomSelectedImage,editorLoader,setCoverImages,editImages,setImageLoader,selectedImage,setSelectedImage,modalRef, editLoader, siteData, world, signIn, coverImages, appLoader, adminToken, admin, setAdminToken, editSiteInfo, setSiteData,cloudinary }}>
+        <AppContext.Provider value={{settings,  getPostById, singPost, appLoader, setAppLoader, getPostsByCategory,categoryPosts, deletePost,getBasicSettings, deleteCategory,updatePost, updateCategory, posts,getPosts,createPost ,createCategory ,getCategories,categories, updateSettings, obj,setobj,allPackageData,roomButtonRef,setRoomSelectedImage,roomImageCloudinary,roomSelectedImage,editorLoader,setCoverImages,setImageLoader,selectedImage,setSelectedImage,modalRef,  siteData, world, signIn, coverImages, appLoader, adminToken, admin, setAdminToken, setSiteData,cloudinary }}>
             {props.children}
         </AppContext.Provider>
     )
